@@ -13,9 +13,6 @@ jobs:
     steps:
     - name: Check out the repo
       uses: actions/checkout@v5
-     
-    - name: Install Podman
-      run: sudo apt-get -y install podman
     
     - name: Use Podman Build and Push Action
       uses: Frozen-Tapestry/container-action@v1
@@ -24,7 +21,7 @@ jobs:
         login_username: ${{ secrets.DOCKERHUB_USERNAME }}
         login_password: ${{ secrets.DOCKERHUB_TOKEN }}
         tags: docker.io/undergroundgoat/caddy-dns-sec:latest
-        dockerfile: .
+        dockerfile: ${{ github.workspace }}/Containerfile
         security: |
           --security-opt=seccomp=unconfined
           --security-opt=apparmor=unconfined
